@@ -1,26 +1,33 @@
-# Example API Gateway With KONG (Laravel + TypeScript Node)
+# Example API Gateway With KONG (TypeScript Node)
 
 ```sh
 git clone https://github.com/carlosfgti/api-gateway-kong-laravel-and-typescript-node.git
 ```
+
 ```sh
-cd api-gateway-kong-laravel-and-typescript-node
+cd api-gateway
 ```
+
 ```sh
-cd api-laravel
+cd api-1
 ```
+
 ```sh
 cp .env.example .env
 ```
+
 ```sh
 docker-compose up -d
 ```
+
 ```sh
-cd ../api-ts-node
+cd ../api-1
 ```
+
 ```sh
 docker-compose up -d
 ```
+
 ```sh
 cd .. && docker-compose up -d
 ```
