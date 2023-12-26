@@ -1,15 +1,11 @@
 # Example API Gateway With KONG (TypeScript Node)
 
 ```sh
-git clone https://github.com/carlosfgti/api-gateway-kong-laravel-and-typescript-node.git
+git clone https://github.com/walosha/cd kong-api-gateway.git
 ```
 
 ```sh
-cd api-gateway
-```
-
-```sh
-cd api-1
+cd kong-api-gateway
 ```
 
 ```sh
@@ -18,16 +14,4 @@ cp .env.example .env
 
 ```sh
 docker-compose up -d
-```
-
-```sh
-cd ../api-1
-```
-
-```sh
-docker-compose up -d
-```
-
-```sh
-cd .. && docker-compose up -d
 ```
