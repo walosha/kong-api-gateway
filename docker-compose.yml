@@ -18,6 +18,8 @@ services:
       PGDATA: /data/postgres
     volumes:
       - ./.docker/postgres:/data/postgres
+      # - "./logs/file.log:/file.log"
+
     ports:
       - "5432:5432"
     restart: unless-stopped
