@@ -1,6 +1,29 @@
-version: "3"
+version: "3.8"
 
 services:
+  app:
+    build: ./app-1
+    ports:
+      - "8080:8080"
+    command: "npm run dev"
+    networks:
+      - app_one_postgres
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: "postgres"
+      PGDATA: /data/postgres
+    volumes:
+      - ./.docker/postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - app_one_postgres
+
   kong:
     image: kong:latest
     volumes:
@@ -19,3 +42,9 @@ services:
       - "127.0.0.1:8001:8001"
       - "127.0.0.1:8444:8444"
       - "127.0.0.1:8002:8002"
+    networks:
+      - app_one_postgres
+
+networks:
+  app_one_postgres:
+    driver: bridge

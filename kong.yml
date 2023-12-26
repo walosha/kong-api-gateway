@@ -7,10 +7,32 @@ services:
       - name: ts-route
         paths:
           - /
+consumers:
+  - username: api-user
+
+basicauth_credentials:
+  - consumer: api-user
+    username: root
+    password: secret
+keyauth_credentials:
+  - consumer: api-user
+    key: secret
 
 plugins:
+  - name: basic-auth
+    config:
+      hide_credentials: true
+  - name: key-auth
+    config:
+      key_names:
+        - apikey
+      key_in_body: false
+      key_in_header: true
+      key_in_query: true
+      hide_credentials: false
+      run_on_preflight: true
+    enabled: true
   - name: rate-limiting
-    service: app-1
     config:
       # second: 5
       minute: 5
@@ -42,3 +64,30 @@ plugins:
         - X-Auth-Token
       credentials: true
       max_age: 3600
+  - name: ip-restriction
+    config:
+      allow:
+        - 172.18.0.1
+      # deny:
+      #   - xxx.xxx.xxx.x
+      # status: 401
+      # message: cannot grant access
+  # - name: bot-detection
+  #   config:
+  #     deny:
+  #       - "curl"
+  #   enabled: false
+  - name: proxy-cache
+    config:
+      response_code:
+        - 200
+      request_method:
+        - GET
+        - HEAD
+      content_type:
+        - text/plain
+        - application/json
+        - application/json; charset=utf-8
+      cache_ttl: 300
+      strategy: memory
+    enabled: false
