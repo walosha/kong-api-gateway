@@ -12,5 +12,33 @@ plugins:
   - name: rate-limiting
     service: app-1
     config:
+      # second: 5
       minute: 5
       policy: local
+      fault_tolerant: true
+      hide_client_headers: false
+      redis_ssl: false
+      redis_ssl_verify: false
+  # comment these if you don't want to store rate limiting data in redis
+  #    policy: redis
+  #    redis_host: 172.27.59.36
+  #    redis_password: example
+  - name: cors
+    config:
+      origins:
+        - "*"
+      methods:
+        - GET
+        - POST
+      headers:
+        - Accept
+        - Accept-Version
+        - Content-Length
+        - Content-MD5
+        - Content-Type
+        - Date
+        - X-Auth-Token
+      exposed_headers:
+        - X-Auth-Token
+      credentials: true
+      max_age: 3600
