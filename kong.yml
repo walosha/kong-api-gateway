@@ -17,6 +17,9 @@ basicauth_credentials:
 keyauth_credentials:
   - consumer: api-user
     key: secret
+acls:
+  - consumer: api-user
+    group: group1
 
 plugins:
   - name: basic-auth
@@ -31,7 +34,13 @@ plugins:
       key_in_query: true
       hide_credentials: false
       run_on_preflight: true
-    enabled: true
+    enabled: false
+  - name: acl
+    config:
+      allow:
+        - group1
+      hide_groups_header: true
+    enabled: false
   - name: rate-limiting
     config:
       # second: 5
@@ -90,4 +99,17 @@ plugins:
         - application/json; charset=utf-8
       cache_ttl: 300
       strategy: memory
+    enabled: false
+  # - name: request-size-limiting
+  #   config:
+  #     allowed_payload_size: 1
+  #     size_unit: kilobytes
+  #     require_content_length: false
+  - name: request-termination
+    config:
+      status_code: 403
+      # message: So long!
+      # body: "{message: So long}"
+      # content_type: "application/json; charset=utf-8"
+      # trigger: "q"
     enabled: false
