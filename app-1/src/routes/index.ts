@@ -1,22 +1,26 @@
-import { Request, Response, Router } from "express"
-import ProductController from "@/controllers/product.controller"
+import { Request, Response, Router } from "express";
+import ProductController from "@/controllers/product.controller";
 
-const routes = Router()
+const routes = Router();
 
-routes.post('/api/products', ProductController.create)
-routes.get('/api/products', ProductController.findAll)
-routes.get('/api/products/:id', ProductController.findOne)
-routes.put('/api/products/:id', ProductController.update)
-routes.delete('/api/products/:id', ProductController.delete)
-routes.get('/', (_: Request, response: Response) => {
+routes.post("/api/products", ProductController.create);
+routes.get("/api/products", ProductController.findAll);
+routes.get("/api/products/:id", ProductController.findOne);
+routes.put("/api/products/:id", ProductController.update);
+routes.delete("/api/products/:id", ProductController.delete);
+routes.get("/", (_: Request, response: Response) => {
+  const path = _.path;
+  console.log(`Received GET request on path: ${path}`);
   response.status(200).send({
-    success: true
-  })
-})
+    success: true,
+  });
+});
 routes.get("*", (_: Request, response: Response) => {
+  const path = _.path;
+  console.log(`Received GET request on path: ${path}`);
   response.status(404).send({
-    error: "Not Found"
-  })
-})
+    error: "Not Found",
+  });
+});
 
-export default routes
+export default routes;

@@ -2,11 +2,13 @@ _format_version: "2.1"
 
 services:
   - name: app-1
-    url: http://172.17.0.1:8080
+    host: 172.17.0.1
+    port: 8080
+    protocol: http
     routes:
       - name: ts-route
-        paths:
-          - /
+        paths: ["/product"]
+        strip_path: true
 consumers:
   - username: api-user
 
